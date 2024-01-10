@@ -4,8 +4,7 @@
 sudo apt-get update
 sudo apt-get -y install nginx
 sudo mkdir -p /data/web_static/{releases/test,shared}
-sudo chown -R ubuntu:ubuntu /data/
-sudo echo -e "<html>
+sudo chown -R ubuntu:ubuntu /data/echo -e "<html>
 <head>
   </head>
   <body>
