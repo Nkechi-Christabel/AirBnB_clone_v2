@@ -13,5 +13,7 @@ echo "<html>
 </html>" | sudo tee /data/web_static/releases/test/index.html
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
-sudo sed -i '44i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+if ! grep -q "location /hbnb_static/ " /etc/nginx/sites-available/default; then
+    sudo sed -i "44i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n" /etc/nginx/sites-available/default
+fi
 sudo service nginx restart
