@@ -10,8 +10,12 @@ env.user = "ubuntu"
 
 
 def do_clean(number=0):
-    """ CLEANS """
+    """
+    Deletes out-of-date archives
 
+    Parameters:
+        number (int): Number of archives to keep
+    """
     number = int(number)
 
     if number == 0:
