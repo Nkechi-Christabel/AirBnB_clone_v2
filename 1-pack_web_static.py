@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/python3
 # This script generates a .tgz archive from the contents of the
 # web_static folder of the AirBnB Clone repo, using the function do_pack.
 from datetime import datetime
