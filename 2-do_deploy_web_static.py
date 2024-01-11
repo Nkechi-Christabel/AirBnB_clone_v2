@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 # Based on the file 1-pack_web_static.py, this script distributes an
 # archive to your web servers, using the function do_deploy.
-
 from fabric.api import env, put, run, sudo
 from os import path
 
 env.hosts = ['54.210.106.177', '54.174.70.150']
+
 
 def do_deploy(archive_path):
     """Distributes an archive to web servers."""
