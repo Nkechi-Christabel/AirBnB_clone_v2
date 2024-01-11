@@ -17,8 +17,6 @@ def do_deploy(archive_path):
     try:
         filename = path.basename(archive_path).split(".")[0]
         release_path = f"/data/web_static/releases/{filename}"
-
-        print("Basename", path.basename(archive_path).split(".")[0])
         put(archive_path, "/tmp/")
 
         run(f"mkdir -p {release_path}")
