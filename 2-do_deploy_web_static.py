@@ -26,7 +26,7 @@ def do_deploy(archive_path):
 
         sudo(f"mv {release_path}/web_static/* {release_path}/")
         sudo("rm -rf /data/web_static/current")
-        sudo(f"ln -s {release_path}/data/web_static/current")
+        sudo(f"ln -s {release_path} /data/web_static/current")
 
         return True
     except Exception as e:
