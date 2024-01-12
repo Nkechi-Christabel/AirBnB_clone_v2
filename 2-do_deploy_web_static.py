@@ -7,7 +7,8 @@ from fabric.api import local, env, put, run, sudo
 from os import path
 import os
 
-env.hosts = ['54.210.106.177', '54.174.70.150' '127.0.0.1']
+env.hosts = ['54.210.106.177', '54.174.70.150', '127.0.0.1']
+
 
 def do_deploy(archive_path):
     """Distributes an archive to web servers."""
@@ -36,7 +37,6 @@ def do_deploy(archive_path):
 
         local(f"mv {release_path}/web_static/* {release_path}/")
         local("rm -rf /data/web_static/current")
-        local(f"ln -s {release_path} /data/web_static/current")
         local(f"ln -s {release_path} /data/web_static/current")
 
         return True
