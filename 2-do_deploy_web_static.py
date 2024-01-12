@@ -10,22 +10,26 @@ env.hosts = ['54.210.106.177', '54.174.70.150']
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to web servers."""
     if not path.exists(archive_path):
         return False
 
     try:
         filename = path.basename(archive_path).split(".")[0]
-        release_path = f"/data/web_static/releases/{filename}"
+        release_path = "/data/web_static/releases/{}".format(filename)
+
+        print("Basename", path.basename(archive_path))
         put(archive_path, "/tmp/")
 
-        sudo(f"mkdir -p {release_path}")
-        sudo(f"tar -xzf /tmp/{path.basename(archive_path)} -C {release_path}")
-        sudo(f"rm /tmp/{path.basename(archive_path)}")
+        run("mkdir -p {}".format(release_path))
+        run("tar -xzf /tmp/{} -C {}".format(path.basename(archive_path),
+                                            release_path))
+        run("rm /tmp/{}".format(path.basename(archive_path)))
 
-        sudo(f"mv {release_path}/web_static/* {release_path}/")
+        sudo('mv {}/web_static/* {}/'.format(release_path, release_path))
         sudo("rm -rf /data/web_static/current")
-        sudo(f"ln -s {release_path} /data/web_static/current")
+        sudo("ln -s {} /data/web_static/current".format(release_path))
+
         return True
     except Exception as e:
+        print("Exception: {}".format(e))
         return False
