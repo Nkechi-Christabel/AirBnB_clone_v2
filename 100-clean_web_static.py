@@ -25,4 +25,5 @@ def do_clean(number=0):
 
     local('cd versions ; ls -t | tail -n +{} | xargs rm -rf'.format(number))
     path = '/data/web_static/releases'
-    sudo('cd {} ; ls -t | tail -n +{} | xargs sudo rm -rf'.format(path, number))
+    sudo('cd {} ; ls -t | tail -n +{} | xargs sudo rm -rf'.format(path,
+                                                                  number))
