@@ -18,7 +18,6 @@ def do_deploy(archive_path):
         filename = path.basename(archive_path).split(".")[0]
         release_path = f"/data/web_static/releases/{filename}"
 
-        print("Basename", path.basename(archive_path))
         put(archive_path, "/tmp/")
 
         run(f"mkdir -p {release_path}")
@@ -27,7 +26,7 @@ def do_deploy(archive_path):
 
         sudo(f"mv {release_path}/web_static/* {release_path}/")
         sudo("rm -rf /data/web_static/current")
-        sudo(f"ln -s {release_path} /data/web_static/current")
+        sudo(f"ln -s {release_path}/data/web_static/current")
 
         return True
     except Exception as e:
