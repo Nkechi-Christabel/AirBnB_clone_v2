@@ -7,7 +7,7 @@ from fabric.api import env, put, run, sudo
 from os import path
 
 env.hosts = ['54.210.106.177', '54.174.70.150']
-env.user = "ubuntu"
+
 
 def do_deploy(archive_path):
     """Distributes an archive to web servers."""
@@ -19,9 +19,9 @@ def do_deploy(archive_path):
         release_path = f"/data/web_static/releases/{filename}"
         put(archive_path, "/tmp/")
 
-        run(f"mkdir -p {release_path}")
-        run(f"tar -xzf /tmp/{path.basename(archive_path)} -C {release_path}")
-        run(f"rm /tmp/{path.basename(archive_path)}")
+        sudo(f"mkdir -p {release_path}")
+        sudo(f"tar -xzf /tmp/{path.basename(archive_path)} -C {release_path}")
+        sudo(f"rm /tmp/{path.basename(archive_path)}")
 
         sudo(f"mv {release_path}/web_static/* {release_path}/")
         sudo("rm -rf /data/web_static/current")
