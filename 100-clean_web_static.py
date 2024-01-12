@@ -1,8 +1,3 @@
-#!/usr/bin/python3
-"""
-Based on the file 3-deploy_web_static.py, this script deletes out-of-date
-archives, using the function do_clean
-"""
 from fabric.api import *
 
 env.hosts = ['54.210.106.177', '54.174.70.150']
@@ -23,7 +18,6 @@ def do_clean(number=0):
     else:
         number += 1
 
-
     local('cd versions ; ls -t | tail -n +{} | xargs rm -rf'.format(number))
     path = '/data/web_static/releases'
-    run('cd {} ; ls -t | tail -n +{} | xargs rm -rf'.format(path, number))
+    sudo('cd {} ; ls -t | tail -n +{} | xargs sudo rm -rf'.format(path, number))
