@@ -19,10 +19,8 @@ def do_deploy(archive_path):
         filename = path.basename(archive_path).split(".")[0]
         release_path = f"/data/web_static/releases/{filename}"
 
-        # put request for file transfer to remote servers
         put(archive_path, "/tmp/")
 
-        # Run on remote servers
         run(f"mkdir -p {release_path}")
         run(f"tar -xzf /tmp/{path.basename(archive_path)} -C {release_path}")
         run(f"rm /tmp/{path.basename(archive_path)}")
