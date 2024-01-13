@@ -26,6 +26,6 @@ def do_deploy(archive_path):
         /data/web_static/current".format(fd))
         print("New version deployed!")
         return True
-    except:
-        print("Deployment failed!")
+    except Exception as e::
+        print("Deployment failed!", e)
         return False
