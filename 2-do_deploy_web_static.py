@@ -30,15 +30,6 @@ def do_deploy(archive_path):
         sudo(f"mv {release_path}/web_static/* {release_path}/")
         sudo("rm -rf /data/web_static/current")
         sudo(f"ln -s {release_path} /data/web_static/current")
-
-        # local() for local operations
-        local(f"mkdir -p {release_path}")
-        local(f"tar -xzf {archive_path} -C {release_path}")
-
-        local(f"mv {release_path}/web_static/* {release_path}/")
-        local("rm -rf /data/web_static/current")
-        local(f"ln -s {release_path} /data/web_static/current")
-
         return True
     except Exception as e:
         print(f"Error: {e}")
