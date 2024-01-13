@@ -1,3 +1,4 @@
+#!/usr/bin/p
 """
 Based on the file 1-pack_web_static.py, this script distributes an
 archive to the web servers, using the function do_deploy.
