@@ -3,29 +3,32 @@
 Based on the file 1-pack_web_static.py, this script distributes an
 archive to the web servers, using the function do_deploy.
 """
-from fabric.api import env, put, run, sudo
+from fabric.api import local, env, put, run, sudo
 from os import path
 import os
 
-env.hosts = ['54.210.106.177', '54.174.70.150']
+env.hosts = ['54.210.106.177', '54.174.70.150', '127.0.0.1']
 
 
 def do_deploy(archive_path):
-    """ Deploy archive to server """
-    fd = archive_path.split("/")[1]
+    """Distributes an archive to web servers."""
+    if not path.exists(archive_path):
+        return False
+
     try:
-        put(archive_path, "/tmp/{}".format(fd))
-        run("mkdir -p /data/web_static/releases/{}".format(fd))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(fd, fd))
-        run("rm /tmp/{}".format(fd))
-        run("mv /data/web_static/releases/{}/web_static/*\
-        /data/web_static/releases/{}/".format(fd, fd))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(fd))
-        run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{}/\
-        /data/web_static/current".format(fd))
-        print("New version deployed!")
+        filename = path.basename(archive_path).split(".")[0]
+        release_path = f"/data/web_static/releases/{filename}"
+
+        put(archive_path, "/tmp/")
+
+        run(f"mkdir -p {release_path}")
+        run(f"tar -xzf /tmp/{path.basename(archive_path)} -C {release_path}")
+        run(f"rm /tmp/{path.basename(archive_path)}")
+
+        sudo(f"mv {release_path}/web_static/* {release_path}/")
+        sudo("rm -rf /data/web_static/current")
+        sudo(f"ln -s {release_path} /data/web_static/current")
         return True
-    except:
-        print("Deployment failed!")
+    except Exception as e:
+        print(f"Error: {e}")
         return False
