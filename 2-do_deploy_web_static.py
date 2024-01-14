@@ -11,24 +11,21 @@ env.hosts = ['54.210.106.177', '54.174.70.150']
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to web servers."""
-    if not path.exists(archive_path):
-        return False
-
+    """ Deploy archive to server """
+    fd = archive_path.split("/")[1]
     try:
-        filename = path.basename(archive_path).split(".")[0]
-        release_path = f"/data/web_static/releases/{filename}"
-
-        put(archive_path, "/tmp/")
-
-        run(f"mkdir -p {release_path}")
-        run(f"tar -xzf /tmp/{path.basename(archive_path)} -C {release_path}")
-        run(f"rm /tmp/{path.basename(archive_path)}")
-
-        run(f"mv {release_path}/web_static/* {release_path}/")
+        put(archive_path, "/tmp/{}".format(fd))
+        run("mkdir -p /data/web_static/releases/{}".format(fd))
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(fd, fd))
+        run("rm /tmp/{}".format(fd))
+        run("mv /data/web_static/releases/{}/web_static/*\
+        /data/web_static/releases/{}/".format(fd, fd))
+        run("rm -rf /data/web_static/releases/{}/web_static".format(fd))
         run("rm -rf /data/web_static/current")
-        run(f"ln -s {release_path} /data/web_static/current")
+        run("ln -s /data/web_static/releases/{}/\
+        /data/web_static/current".format(fd))
+        print("New version deployed!")
         return True
-    except Exception as e:
-        print(f"Error: {e}")
+    except:
+        print("Deployment failed!")
         return False
