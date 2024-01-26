@@ -11,7 +11,7 @@ app = Flask(__name__)
 def hello_hbnb():
     """
     Displays Hello HBNB string
-    """ 
+    """
     return "Hello HBNB!"
 
 
