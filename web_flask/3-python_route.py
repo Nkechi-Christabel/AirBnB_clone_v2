@@ -2,7 +2,8 @@
 """
 Starts a Flask web application that listens on 0.0.0.0, port 5000
 """
-from flask import Flask, escape
+from flask import Flask
+from markupsafe import escape
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def c_text(text):
 
 
 @app.route("/python/<text>", strict_slashes=False)
-def python_text(text=“is cool”):
+def python_text(text="is cool"):
     """
     Display "Python " followed by the value of the text variable
     (replace underscore _ symbols with a space)
