@@ -12,7 +12,7 @@ def hello_hbnb():
     """
     Returns: Hello HBNB string.
     """ 
-    return "Hello HBNB!"
+    return "<p>Hello HBNB!</p>"
 
 
 if __name__ == "__main__":
