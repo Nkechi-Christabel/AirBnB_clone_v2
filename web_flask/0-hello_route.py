@@ -12,8 +12,8 @@ def hello_hbnb():
     """
     Returns: Hello HBNB string.
     """ 
-    return "<p>Hello HBNB!</p>"
+    return "Hello HBNB!"
 
 
 if __name__ == "__main__":
-     app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
