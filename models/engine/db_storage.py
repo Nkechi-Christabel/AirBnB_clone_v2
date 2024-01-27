@@ -19,7 +19,7 @@ class DBStorage:
     __engine = None
     __session = None
 
-        def __init__(self):
+    def __init__(self):
         db_user = environ.get('HBNB_MYSQL_USER')
         db_pwd = environ.get('HBNB_MYSQL_PWD')
         db_host = environ.get('HBNB_MYSQL_HOST')
@@ -33,6 +33,7 @@ class DBStorage:
 
         if environ.get('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
+
 
     def all(self, cls=None):
         session = self.__session
