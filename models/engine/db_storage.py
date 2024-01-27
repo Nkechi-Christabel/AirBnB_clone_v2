@@ -10,8 +10,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
 
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
@@ -21,7 +19,7 @@ class DBStorage:
     __engine = None
     __session = None
 
-    def __init__(self):
+        def __init__(self):
         db_user = environ.get('HBNB_MYSQL_USER')
         db_pwd = environ.get('HBNB_MYSQL_PWD')
         db_host = environ.get('HBNB_MYSQL_HOST')
@@ -67,12 +65,12 @@ class DBStorage:
         Session = scoped_session(session_factory)
         self.__session = Session()
 
+    @property
+    def session(self):
+        return self.__session
+
     def close(self):
         """
         Call remove() method on the private session attribute (self.__session)
         """
-        self.__session.remove()
-
-    @property
-    def session(self):
-        return self.__session
+        self.__session.close()
