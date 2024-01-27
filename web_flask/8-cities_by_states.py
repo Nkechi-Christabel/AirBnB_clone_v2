@@ -17,14 +17,13 @@ def teardown(exception):
     storage.close()
 
 
-@app.route("/states_list", strict_slashes=False)
-def states_list():
+@app.route("/cities_by_states", strict_slashes=False)
+def cities_by_states():
     """
     Display a HTML page with a list of all State objects sorted by name
     """
     sorted_states = sorted(storage.all(State).values(), key=lambda x: x.name)
-    print(storage.all(State).values())
-    return render_template('7-states_list.html', states=sorted_states)
+    return render_template('8-cities_by_states.html', states=sorted_states)
 
 
 if __name__ == "__main__":
